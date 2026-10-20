@@ -4,24 +4,24 @@ import br.edu.uniesp.assistencia.internal.ordemservico.dto.CriarOrdemServicoRequ
 import br.edu.uniesp.assistencia.internal.ordemservico.dto.CriarOrdemServicoResponse;
 import br.edu.uniesp.assistencia.internal.ordemservico.service.OrdemServicoService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/ordens")
-@RequiredArgsConstructor
 public class OrdemServicoController {
 
-    private final OrdemServicoService ordemServicoService;
+    private final OrdemServicoService service;
+
+    public OrdemServicoController(OrdemServicoService service) {
+        this.service = service;
+    }
 
     @PostMapping
-    public ResponseEntity<CriarOrdemServicoResponse> abrir(@Valid @RequestBody CriarOrdemServicoRequest request) {
-        CriarOrdemServicoResponse response = ordemServicoService.abrirOrdemServico(request);
+    public ResponseEntity<CriarOrdemServicoResponse> criar(
+            @RequestBody @Valid CriarOrdemServicoRequest request) {
+        CriarOrdemServicoResponse response = service.criarOrdemServico(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }

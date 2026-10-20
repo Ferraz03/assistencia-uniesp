@@ -1,19 +1,15 @@
 spring:
-  application:
-    name: assistencia-uniesp
-
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
 
   jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: validate
-    open-in-view: false
+      ddl-auto: create
+    show-sql: true
 
   flyway:
-    enabled: true
-
-server:
-  port: ${SERVER_PORT:8080}
+    enabled: false
